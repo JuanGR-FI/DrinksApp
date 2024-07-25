@@ -17,6 +17,7 @@ import com.example.drinksapp.R
 import com.example.drinksapp.data.model.UserProvider
 import com.example.drinksapp.databinding.FragmentLoginBinding
 import com.example.drinksapp.ui.viewmodel.UserViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -66,6 +67,7 @@ class LoginFragment : Fragment() {
                 findNavController().navigate(R.id.action_loginFragment_to_drinksFragment)
             } else {
                 Toast.makeText(requireContext(), "Usuario no existe", Toast.LENGTH_SHORT).show()
+                showUserNotRegisteredDialog()
             }
         })
 
@@ -75,6 +77,16 @@ class LoginFragment : Fragment() {
                 etPassword.text.toString().trim()
             )
         }
+    }
+
+    private fun showUserNotRegisteredDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Usuario no encontrado!")
+            .setMessage("Usuario y contraseña incorrectos, intente de nuevo.")
+            .setNeutralButton("Ok") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onDestroy() {
