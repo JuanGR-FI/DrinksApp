@@ -55,7 +55,7 @@ dependencies {
 
     //Activity and Fragment extensions
     implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.fragment.ktx.v182)
 
     //Coroutines
     implementation(libs.androidx.lifecycle.runtime.ktx)
