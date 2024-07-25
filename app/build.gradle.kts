@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.load.java.javaToKotlinNameMap
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
     kotlin("kapt")
 }
 
