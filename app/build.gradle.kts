@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.load.java.javaToKotlinNameMap
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -36,6 +39,32 @@ android {
 }
 
 dependencies {
+
+    //Retrofit y Gson
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    //ViewModel y LiveData
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.core.ktx)
+
+    //Activity and Fragment extensions
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
+
+    //Coroutines
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    //Room
+    implementation(libs.androidx.room.ktx)
+    kapt (libs.androidx.room.compiler)
+
+    //Navigation Component
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    //Picasso
+    implementation(libs.picasso)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
