@@ -9,13 +9,18 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drinksapp.R
+import com.example.drinksapp.data.model.Drink
 import com.example.drinksapp.databinding.FragmentDrinksBinding
+import com.example.drinksapp.ui.adapters.DrinksAdapter
 import com.example.drinksapp.ui.viewmodel.DrinkViewModel
 
 class DrinksFragment : Fragment() {
     private var _binding: FragmentDrinksBinding? = null
     private val binding get() = _binding!!
+
+    private var drinks = mutableListOf<Drink>()
 
     private val drinkViewModel: DrinkViewModel by viewModels()
 
@@ -30,6 +35,13 @@ class DrinksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val myAdapter = DrinksAdapter(drinks)
+
+        binding.rvDrinks.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = myAdapter
+        }
+
         drinkViewModel.getDrinks('a')
 
         drinkViewModel.isLoading.observe(viewLifecycleOwner, Observer {
@@ -39,6 +51,8 @@ class DrinksFragment : Fragment() {
         drinkViewModel.drinkList.observe(viewLifecycleOwner, Observer { drinkList ->
             Log.i("DRINKS", drinkList.toString())
             Log.i("DRINKS", "TAM: ${drinkList.size}")
+            myAdapter.drinks = drinkList.toMutableList()
+            myAdapter.notifyDataSetChanged()
         })
 
     }
