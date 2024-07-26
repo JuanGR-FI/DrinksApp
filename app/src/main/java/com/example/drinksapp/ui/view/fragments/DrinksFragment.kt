@@ -70,7 +70,12 @@ class DrinksFragment : Fragment() {
             })
         }
 
-        drinkViewModel.getDrinks(currentPage)
+        if (savedInstanceState == null) {
+            if(drinks.isEmpty()){
+                drinkViewModel.getDrinks(currentPage)
+            }
+
+        }
 
         drinkViewModel.isLoading.observe(viewLifecycleOwner, Observer {
             binding.progressBarDrinks.isVisible = it

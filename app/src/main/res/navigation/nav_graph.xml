@@ -21,7 +21,8 @@
         tools:layout="@layout/fragment_drinks" >
         <action
             android:id="@+id/action_drinksFragment_to_drinkDetailFragment"
-            app:destination="@id/drinkDetailFragment" />
+            app:destination="@id/drinkDetailFragment"
+            app:popUpTo="@id/drinksFragment" />
     </fragment>
     <fragment
         android:id="@+id/drinkDetailFragment"

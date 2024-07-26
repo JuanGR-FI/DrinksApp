@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.drinksapp.R
 import com.example.drinksapp.data.model.Drink
@@ -54,6 +55,11 @@ class DrinkDetailFragment : Fragment() {
 
     private fun prepareUI(drink: Drink) {
         binding.apply {
+
+            btnExit.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
             tvDrinkDetailName.text = drink.strDrink
             tvInstructions.text = drink.strInstructions
 
@@ -64,6 +70,8 @@ class DrinkDetailFragment : Fragment() {
                 .placeholder(R.drawable.img_drinks_placeholder)
                 .error(R.drawable.img_image_not_found)
                 .into(ivDrinkDetailThumbnail)
+
+
 
         }
     }
