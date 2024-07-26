@@ -77,6 +77,11 @@ class LoginFragment : Fragment() {
                 etPassword.text.toString().trim()
             )
         }
+
+        binding.btnExit.setOnClickListener {
+            showExitDialog()
+        }
+
     }
 
     private fun showUserNotRegisteredDialog() {
@@ -84,6 +89,20 @@ class LoginFragment : Fragment() {
             .setTitle("Usuario no encontrado!")
             .setMessage("Usuario y contraseña incorrectos, intente de nuevo.")
             .setNeutralButton("Ok") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showExitDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Aviso!")
+            .setMessage("¿Deseas salir de la aplicación?")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+                activity?.finish()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
