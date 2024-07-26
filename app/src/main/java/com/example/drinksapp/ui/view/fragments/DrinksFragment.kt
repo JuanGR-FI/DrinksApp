@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.drinksapp.R
 import com.example.drinksapp.data.model.Drink
 import com.example.drinksapp.databinding.FragmentDrinksBinding
@@ -19,6 +20,9 @@ import com.example.drinksapp.ui.viewmodel.DrinkViewModel
 class DrinksFragment : Fragment() {
     private var _binding: FragmentDrinksBinding? = null
     private val binding get() = _binding!!
+
+    private var currentPage = 0
+    private var isLoading = false
 
     private var drinks = mutableListOf<Drink>()
 
@@ -40,19 +44,38 @@ class DrinksFragment : Fragment() {
         binding.rvDrinks.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = myAdapter
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+
+                    if (!recyclerView.canScrollVertically(1)) {
+                        if (!isLoading) {
+                            isLoading = true
+                            drinkViewModel.getDrinks(currentPage)
+                        }
+
+                    }
+
+                }
+            })
         }
 
-        drinkViewModel.getDrinks('a')
+        drinkViewModel.getDrinks(currentPage)
 
         drinkViewModel.isLoading.observe(viewLifecycleOwner, Observer {
             binding.progressBarDrinks.isVisible = it
+            isLoading = it
         })
 
         drinkViewModel.drinkList.observe(viewLifecycleOwner, Observer { drinkList ->
-            Log.i("DRINKS", drinkList.toString())
-            Log.i("DRINKS", "TAM: ${drinkList.size}")
-            myAdapter.drinks = drinkList.toMutableList()
+            //Log.i("DRINKS", drinkList.toString())
+            //Log.i("DRINKS", "TAM: ${drinkList.size}")
+            //myAdapter.drinks = drinkList.toMutableList()
+            myAdapter.drinks.addAll(drinkList)
             myAdapter.notifyDataSetChanged()
+
+            currentPage++
         })
 
     }
