@@ -17,6 +17,8 @@ class UserViewModel : ViewModel() {
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> = _user
 
+    var getUserUseCase = GetUserUseCase()
+
     fun validateFields(username: String, password: String) {
         if (username.isEmpty()) {
             _isNameValid.postValue(false)
@@ -33,7 +35,7 @@ class UserViewModel : ViewModel() {
     }
 
     private fun getUser(username: String, password: String): User? {
-        val currentUser = GetUserUseCase(username, password).validateUser()
+        val currentUser = getUserUseCase.validateUser(username, password)
         return currentUser
     }
 

@@ -44,8 +44,8 @@ class DrinksAdapter(
 
         Picasso.get()
             .load(drink.strDrinkThumb)
-            .placeholder(R.drawable.ic_launcher_background)
-            .error(R.drawable.ic_launcher_background)
+            .placeholder(R.drawable.img_drinks_placeholder)
+            .error(R.drawable.img_image_not_found)
             .into(holder.ivThumbnail)
 
 

@@ -19,10 +19,13 @@ class DrinkViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    var getDrinksByLetterUseCase = GetDrinksByLetterUseCase()
+    var getDrinkDetailUseCase = GetDrinkDetailUseCase()
+
     fun getDrinks(index: Int) {
         viewModelScope.launch {
             _isLoading.postValue(true)
-            val result = GetDrinksByLetterUseCase()
+            val result = getDrinksByLetterUseCase
                 .getDrinksByLetter(getNewLetter(index))
 
             if (!result.isNullOrEmpty()) {
@@ -35,7 +38,7 @@ class DrinkViewModel : ViewModel() {
     fun getDrinkDetail(id: Int) {
         viewModelScope.launch {
             _isLoading.postValue(true)
-            val result = GetDrinkDetailUseCase()
+            val result = getDrinkDetailUseCase
                 .getDrinkDetail(id)
 
             if (!result.isNullOrEmpty()) {
