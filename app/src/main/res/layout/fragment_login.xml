@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".ui.view.fragments.LoginFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -19,7 +20,7 @@
             android:id="@+id/toolbar_login_fragment"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#343434">
+            android:background="@color/toolbar_background_color">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -28,13 +29,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:text="Login"
+                    android:textColor="@color/primary_text_color"
                     android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!--<com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
@@ -47,11 +48,11 @@
                     android:id="@+id/btnExit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="Salir"
                     app:backgroundTint="@android:color/transparent"
-                    android:text="Salir"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -62,12 +63,17 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ilUser"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
-        app:boxStrokeErrorColor="#9e2a2b"
-        app:errorTextColor="#9e2a2b"
+        android:textColorHint="@color/hint_text_color"
+        app:boxStrokeColor="@color/white"
+        app:boxStrokeErrorColor="@color/error_color"
+        app:errorTextColor="@color/error_color"
+        app:helperTextTextColor="@color/primary_text_color"
+        app:hintTextColor="@color/primary_text_color"
         app:layout_constraintBottom_toTopOf="@id/ilPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +86,11 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_user"
             android:drawablePadding="8dp"
+            android:drawableTint="@color/white_icon_color"
             android:hint="@string/user_text_field_hint"
             android:imeOptions="actionDone"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
+            android:textColor="@color/primary_text_color"
             android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,9 +102,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
-        app:boxStrokeErrorColor="#9e2a2b"
+        android:textColorHint="@color/hint_text_color"
+        app:boxStrokeColor="@color/white"
+        app:boxStrokeErrorColor="@color/error_color"
         app:endIconMode="password_toggle"
-        app:errorTextColor="#9e2a2b"
+        app:endIconTint="@color/white_icon_color"
+        app:errorTextColor="@color/error_color"
+        app:helperTextTextColor="@color/primary_text_color"
+        app:hintTextColor="@color/primary_text_color"
         app:layout_constraintBottom_toTopOf="@id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,9 +121,11 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_lock"
             android:drawablePadding="8dp"
+            android:drawableTint="@color/white_icon_color"
             android:hint="@string/password_text_field_hint"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
+            android:textColor="@color/primary_text_color"
             android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -121,8 +136,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="50dp"
-        android:text="Login"
-        android:textSize="20dp"
+        android:backgroundTint="@color/btn_color"
+        android:text="@string/login_btn_text"
+        android:textColor="@color/primary_text_color"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

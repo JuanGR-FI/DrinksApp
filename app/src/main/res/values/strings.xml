@@ -5,4 +5,5 @@
     <string name="password_text_field_hint">Contraseña</string>
     <string name="ingredient_title_text">Ingredientes</string>
     <string name="instruction_title_text">Instrucciones</string>
+    <string name="login_btn_text">Login</string>
 </resources>
