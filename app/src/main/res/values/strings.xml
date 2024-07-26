@@ -3,4 +3,6 @@
     <string name="invalid_field_error_text">Campos vacíos</string>
     <string name="user_text_field_hint">Usuario</string>
     <string name="password_text_field_hint">Contraseña</string>
+    <string name="ingredient_title_text">Ingredientes</string>
+    <string name="instruction_title_text">Instrucciones</string>
 </resources>

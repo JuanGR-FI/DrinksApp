@@ -39,4 +39,11 @@ class DrinkService {
         }
     }
 
+    suspend fun getDrinkDetail(id: Int): List<Drink> {
+        return withContext(Dispatchers.IO) {
+            val response = retrofit.create(DrinkApiClient::class.java).getDrinkDetail(id)
+            response.body()?.drinks ?: emptyList()
+        }
+    }
+
 }

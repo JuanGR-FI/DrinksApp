@@ -8,7 +8,10 @@ import com.example.drinksapp.data.model.Drink
 import com.example.drinksapp.databinding.DrinkElementBinding
 import com.squareup.picasso.Picasso
 
-class DrinksAdapter(var drinks: MutableList<Drink>) :
+class DrinksAdapter(
+    var drinks: MutableList<Drink>,
+    private val onDrinkClicked: (Int) -> Unit
+) :
     RecyclerView.Adapter<DrinksAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: DrinkElementBinding) :
@@ -34,6 +37,10 @@ class DrinksAdapter(var drinks: MutableList<Drink>) :
         val drink = drinks[position]
 
         holder.bind(drink)
+
+        holder.itemView.setOnClickListener {
+            onDrinkClicked(drink.idDrink.toInt())
+        }
 
         Picasso.get()
             .load(drink.strDrinkThumb)

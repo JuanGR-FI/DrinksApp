@@ -12,4 +12,10 @@ interface DrinkApiClient {
     suspend fun getDrinks(
         @Query("f") letter: Char
     ): Response<DrinkModel>
+
+    @GET("lookup.php")
+    suspend fun getDrinkDetail(
+        @Query("i") id: Int
+    ): Response<DrinkModel>
+
 }

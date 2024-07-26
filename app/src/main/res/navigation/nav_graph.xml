@@ -18,5 +18,19 @@
         android:id="@+id/drinksFragment"
         android:name="com.example.drinksapp.ui.view.fragments.DrinksFragment"
         android:label="fragment_drinks"
-        tools:layout="@layout/fragment_drinks" />
+        tools:layout="@layout/fragment_drinks" >
+        <action
+            android:id="@+id/action_drinksFragment_to_drinkDetailFragment"
+            app:destination="@id/drinkDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/drinkDetailFragment"
+        android:name="com.example.drinksapp.ui.view.fragments.DrinkDetailFragment"
+        android:label="fragment_drink_detail"
+        tools:layout="@layout/fragment_drink_detail" >
+        <argument
+            android:name="drinkId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>

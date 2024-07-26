@@ -11,4 +11,11 @@ class DrinkRepository {
         //QuoteProvider.quotes = response
         return response
     }
+
+    suspend fun getDrinkDetail(id: Int): List<Drink> {
+        val response = api.getDrinkDetail(id)
+        //QuoteProvider.quotes = response
+        return response
+    }
+
 }

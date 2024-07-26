@@ -5,12 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drinksapp.data.model.Drink
+import com.example.drinksapp.domain.GetDrinkDetailUseCase
 import com.example.drinksapp.domain.GetDrinksByLetterUseCase
 import kotlinx.coroutines.launch
 
 class DrinkViewModel : ViewModel() {
     private val _drinkList = MutableLiveData<List<Drink>>()
     val drinkList: LiveData<List<Drink>> = _drinkList
+
+    private val _drink = MutableLiveData<Drink>()
+    val drink: LiveData<Drink> = _drink
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -26,7 +30,19 @@ class DrinkViewModel : ViewModel() {
                 _isLoading.postValue(false)
             }
         }
+    }
 
+    fun getDrinkDetail(id: Int) {
+        viewModelScope.launch {
+            _isLoading.postValue(true)
+            val result = GetDrinkDetailUseCase()
+                .getDrinkDetail(id)
+
+            if (!result.isNullOrEmpty()) {
+                _drink.postValue(result[0])
+                _isLoading.postValue(false)
+            }
+        }
     }
 
     private fun getNewLetter(index: Int): Char {
