@@ -58,7 +58,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx.v182)
 
     //Coroutines
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    //implementation(libs.kotlin.coroutines.android)
 
     //Room
     implementation(libs.androidx.room.ktx)

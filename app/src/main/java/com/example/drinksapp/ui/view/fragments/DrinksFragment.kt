@@ -1,16 +1,23 @@
 package com.example.drinksapp.ui.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.drinksapp.R
 import com.example.drinksapp.databinding.FragmentDrinksBinding
+import com.example.drinksapp.ui.viewmodel.DrinkViewModel
 
 class DrinksFragment : Fragment() {
     private var _binding: FragmentDrinksBinding? = null
     private val binding get() = _binding!!
+
+    private val drinkViewModel: DrinkViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +29,17 @@ class DrinksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        drinkViewModel.getDrinks('a')
+
+        drinkViewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            binding.progressBarDrinks.isVisible = it
+        })
+
+        drinkViewModel.drinkList.observe(viewLifecycleOwner, Observer { drinkList ->
+            Log.i("DRINKS", drinkList.toString())
+            Log.i("DRINKS", "TAM: ${drinkList.size}")
+        })
 
     }
 
