@@ -73,9 +73,15 @@ class FavoriteDrinksFragment : Fragment() {
         })
 
         drinkViewModel.favDrinkList.observe(viewLifecycleOwner, Observer { favList ->
-            Log.i("FAVS", favList.toString())
-            myAdapter.drinks = favList.toMutableList()
-            myAdapter.notifyDataSetChanged()
+            if (favList.isNotEmpty()) {
+                binding.tvNoFavs.visibility = View.GONE
+
+                myAdapter.drinks = favList.toMutableList()
+                myAdapter.notifyDataSetChanged()
+            } else {
+                binding.tvNoFavs.visibility = View.VISIBLE
+            }
+
         })
 
     }
