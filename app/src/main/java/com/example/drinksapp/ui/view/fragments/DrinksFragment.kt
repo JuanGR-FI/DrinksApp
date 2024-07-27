@@ -31,6 +31,7 @@ class DrinksFragment : Fragment() {
 
     private var isFirstLoad: Boolean = false
     private var mRootView: ViewGroup? = null
+    private var isInOtherFragment: Boolean = false
 
     private var currentPage = 0
     private var isLoading = false
@@ -67,6 +68,7 @@ class DrinksFragment : Fragment() {
         }
 
         val myAdapter = DrinksAdapter(false, drinks, mutableListOf(), { id ->
+            isInOtherFragment = true
             findNavController()
                 .navigate(
                     DrinksFragmentDirections
@@ -79,8 +81,6 @@ class DrinksFragment : Fragment() {
                 .show()
         })
 
-
-
         binding.rvDrinks.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = myAdapter
@@ -91,6 +91,7 @@ class DrinksFragment : Fragment() {
 
                     if (!recyclerView.canScrollVertically(1)) {
                         if (!isLoading) {
+                            isInOtherFragment = false
                             isLoading = true
                             drinkViewModel.getDrinks(currentPage)
                         }
@@ -102,6 +103,7 @@ class DrinksFragment : Fragment() {
         }
 
         binding.btnFav.setOnClickListener {
+            isInOtherFragment = true
             findNavController().navigate(
                 DrinksFragmentDirections.actionDrinksFragmentToFavoriteDrinksFragment(
                     userId = userId
@@ -114,8 +116,12 @@ class DrinksFragment : Fragment() {
         }
 
         drinkViewModel.favDrinkList.observe(viewLifecycleOwner, Observer { favsList ->
-            myAdapter.favsList = favsList.toMutableList()
-            drinkViewModel.getDrinks(currentPage)
+
+            if(!isInOtherFragment){
+                //Log.i("DRINKS", "Bring more info")
+                myAdapter.favsList = favsList.toMutableList()
+                drinkViewModel.getDrinks(currentPage)
+            }
         })
 
         drinkViewModel.isLoading.observe(viewLifecycleOwner, Observer {
