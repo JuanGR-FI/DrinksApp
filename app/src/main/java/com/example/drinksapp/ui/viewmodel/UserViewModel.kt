@@ -26,7 +26,10 @@ class UserViewModel @Inject constructor(
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> = _user
 
-    fun getUserByName(username: String, password: String){
+    private val _isUserInserted = MutableLiveData<Boolean>()
+    val isUserInserted: LiveData<Boolean> = _isUserInserted
+
+    fun getUserByName(username: String, password: String) {
         viewModelScope.launch {
             if (username.isEmpty()) {
                 _isNameValid.postValue(false)
@@ -43,7 +46,7 @@ class UserViewModel @Inject constructor(
 
     }
 
-    fun registerUser(username: String, password: String){
+    fun registerUser(username: String, password: String) {
         viewModelScope.launch {
             if (username.isEmpty()) {
                 _isNameValid.postValue(false)
@@ -54,6 +57,7 @@ class UserViewModel @Inject constructor(
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
                 registerUserUseCase.insertUser(username, password)
+                _isUserInserted.postValue(true)
             }
         }
 

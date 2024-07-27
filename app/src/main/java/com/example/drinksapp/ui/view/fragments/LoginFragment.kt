@@ -67,7 +67,6 @@ class LoginFragment : Fragment() {
 
         userViewModel.user.observe(viewLifecycleOwner, Observer { currentUser ->
             if (currentUser != null) {
-                //findNavController().navigate(R.id.action_loginFragment_to_drinksFragment)
                 findNavController().navigate(
                     LoginFragmentDirections.actionLoginFragmentToDrinksFragment(
                         userId = currentUser.id
@@ -78,18 +77,22 @@ class LoginFragment : Fragment() {
             }
         })
 
+        userViewModel.isUserInserted.observe(viewLifecycleOwner, Observer {
+            showUserRegisteredSuccessfulyDialog()
+        })
+
         binding.btnLogin.setOnClickListener {
             userViewModel.getUserByName(
                 etUserName.text.toString().trim(),
                 etPassword.text.toString().trim()
             )
+        }
 
-            //******************** REGISTRO DE PRUEBA ****************//
-            /*userViewModel.registerUser(
+        binding.btnRegister.setOnClickListener {
+            userViewModel.registerUser(
                 etUserName.text.toString().trim(),
                 etPassword.text.toString().trim()
-            )*/
-            //*******************************************************//
+            )
         }
 
         binding.btnExit.setOnClickListener {
@@ -102,6 +105,16 @@ class LoginFragment : Fragment() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Usuario no encontrado!")
             .setMessage("Usuario y contraseña incorrectos, intente de nuevo.")
+            .setNeutralButton("Ok") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showUserRegisteredSuccessfulyDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Usuario registrado!")
+            .setMessage("El usuario se ha registrado correctamente, puede iniciar sesión.")
             .setNeutralButton("Ok") { dialog, _ ->
                 dialog.dismiss()
             }

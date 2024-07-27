@@ -15,7 +15,8 @@
     <color name="gray_icon_color">#2A2A2A</color>
     <color name="red_icon_color">#FFFF4444</color>
 
-    <color name="btn_color">#A043DD</color>
+    <color name="login_btn_color">#A043DD</color>
+    <color name="register_btn_color">#435DDD</color>
 
     <color name="error_color">#9e2a2b</color>
 
