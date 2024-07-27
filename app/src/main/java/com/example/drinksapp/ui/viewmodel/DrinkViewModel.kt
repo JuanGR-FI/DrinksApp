@@ -1,5 +1,6 @@
 package com.example.drinksapp.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.drinksapp.data.model.DrinkModel
 import com.example.drinksapp.domain.GetDrinkDetailUseCase
 import com.example.drinksapp.domain.GetDrinksByLetterUseCase
+import com.example.drinksapp.domain.InsertDrinkToDbUseCase
 import com.example.drinksapp.domain.model.Drink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DrinkViewModel @Inject constructor(
     private val getDrinksByLetterUseCase: GetDrinksByLetterUseCase,
-    private val getDrinkDetailUseCase: GetDrinkDetailUseCase
+    private val getDrinkDetailUseCase: GetDrinkDetailUseCase,
+    private val insertDrinkToDbUseCase: InsertDrinkToDbUseCase
 ) : ViewModel() {
 
     private val _drinkList = MutableLiveData<List<DrinkModel>>()
@@ -50,6 +53,13 @@ class DrinkViewModel @Inject constructor(
                 _drink.postValue(result[0])
                 _isLoading.postValue(false)
             }
+        }
+    }
+
+    fun insertFavorite(drink: DrinkModel, userId: Int) {
+        viewModelScope.launch {
+            insertDrinkToDbUseCase.insertFavorite(drink, userId)
+            Log.i("FAV", "Intentando almacenar en DB")
         }
     }
 

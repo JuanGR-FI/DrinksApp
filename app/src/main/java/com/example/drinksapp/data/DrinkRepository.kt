@@ -2,6 +2,7 @@ package com.example.drinksapp.data
 
 import com.example.drinksapp.data.database.dao.DrinkDao
 import com.example.drinksapp.data.database.dao.UserDao
+import com.example.drinksapp.data.database.entities.DrinkEntity
 import com.example.drinksapp.data.database.entities.UserEntity
 import com.example.drinksapp.data.model.DrinkModel
 import com.example.drinksapp.data.network.DrinkService
@@ -41,6 +42,10 @@ class DrinkRepository @Inject constructor(
 
     suspend fun insertUser(user: UserEntity) {
         userDao.insertUser(user)
+    }
+
+    suspend fun insertFavorite(drink: DrinkEntity){
+        drinkDao.insertFavorite(drink)
     }
 
 }

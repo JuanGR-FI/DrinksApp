@@ -46,15 +46,16 @@ class DrinksFragment : Fragment() {
 
         val userId = args.userId
 
-
-        val myAdapter = DrinksAdapter(drinks) { id ->
+        val myAdapter = DrinksAdapter(drinks, { id ->
             findNavController()
                 .navigate(
                     DrinksFragmentDirections
                         .actionDrinksFragmentToDrinkDetailFragment(drinkId = id)
                 )
 
-        }
+        }, { drink ->
+            drinkViewModel.insertFavorite(drink, userId)
+        })
 
         binding.rvDrinks.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -77,11 +78,11 @@ class DrinksFragment : Fragment() {
         }
 
         binding.btnFav.setOnClickListener {
-            /*findNavController().navigate(
+            findNavController().navigate(
                 DrinksFragmentDirections.actionDrinksFragmentToFavoriteDrinksFragment(
                     userId = userId
                 )
-            )*/
+            )
         }
 
         if (savedInstanceState == null) {

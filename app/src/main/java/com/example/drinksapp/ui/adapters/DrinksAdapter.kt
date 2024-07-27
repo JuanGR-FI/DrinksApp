@@ -11,7 +11,8 @@ import com.squareup.picasso.Picasso
 
 class DrinksAdapter(
     var drinks: MutableList<DrinkModel>,
-    private val onDrinkClicked: (Int) -> Unit
+    private val onDrinkClicked: (Int) -> Unit,
+    private val onFavClicked: (DrinkModel) -> Unit
 ) :
     RecyclerView.Adapter<DrinksAdapter.ViewHolder>() {
 
@@ -19,6 +20,7 @@ class DrinksAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         val ivThumbnail = binding.ivDrinkThumbnail
+        val btnFav = binding.btnFav
 
         fun bind(drink: DrinkModel) {
             binding.tvDrinkName.text = drink.strDrink
@@ -41,6 +43,10 @@ class DrinksAdapter(
 
         holder.itemView.setOnClickListener {
             onDrinkClicked(drink.idDrink.toInt())
+        }
+
+        holder.btnFav.setOnClickListener {
+            onFavClicked(drink)
         }
 
         Picasso.get()
