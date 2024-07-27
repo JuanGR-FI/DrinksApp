@@ -75,10 +75,10 @@ class LoginFragment : Fragment() {
         })
 
         binding.btnLogin.setOnClickListener {
-            /*userViewModel.validateFields(
+            userViewModel.getUserByName(
                 etUserName.text.toString().trim(),
                 etPassword.text.toString().trim()
-            )*/
+            )
 
             //******************** REGISTRO DE PRUEBA ****************//
             /*userViewModel.registerUser(
@@ -86,12 +86,6 @@ class LoginFragment : Fragment() {
                 etPassword.text.toString().trim()
             )*/
             //*******************************************************//
-
-            userViewModel.getUserByName(
-                etUserName.text.toString().trim(),
-                etPassword.text.toString().trim()
-            )
-
         }
 
         binding.btnExit.setOnClickListener {
