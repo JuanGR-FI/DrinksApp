@@ -37,4 +37,8 @@ class DrinkRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
+    suspend fun insertUser(user: UserEntity) {
+        userDao.insertUser(user)
+    }
+
 }

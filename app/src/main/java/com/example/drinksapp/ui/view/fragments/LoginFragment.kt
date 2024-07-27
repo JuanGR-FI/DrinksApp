@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.drinksapp.R
 import com.example.drinksapp.data.model.UserProvider
@@ -19,6 +20,7 @@ import com.example.drinksapp.databinding.FragmentLoginBinding
 import com.example.drinksapp.ui.viewmodel.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -65,19 +67,31 @@ class LoginFragment : Fragment() {
 
         userViewModel.user.observe(viewLifecycleOwner, Observer { currentUser ->
             if (currentUser != null) {
+                //findNavController().navigate(R.id.action_loginFragment_to_drinksFragment)
                 Toast.makeText(requireContext(), "Usuario valido", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_loginFragment_to_drinksFragment)
             } else {
-                Toast.makeText(requireContext(), "Usuario no existe", Toast.LENGTH_SHORT).show()
                 showUserNotRegisteredDialog()
             }
         })
 
         binding.btnLogin.setOnClickListener {
-            userViewModel.validateFields(
+            /*userViewModel.validateFields(
+                etUserName.text.toString().trim(),
+                etPassword.text.toString().trim()
+            )*/
+
+            //******************** REGISTRO DE PRUEBA ****************//
+            /*userViewModel.registerUser(
+                etUserName.text.toString().trim(),
+                etPassword.text.toString().trim()
+            )*/
+            //*******************************************************//
+
+            userViewModel.getUserByName(
                 etUserName.text.toString().trim(),
                 etPassword.text.toString().trim()
             )
+
         }
 
         binding.btnExit.setOnClickListener {
