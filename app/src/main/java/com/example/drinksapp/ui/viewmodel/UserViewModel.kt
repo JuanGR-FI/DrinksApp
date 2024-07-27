@@ -5,8 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.drinksapp.data.model.User
 import com.example.drinksapp.domain.GetUserUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class UserViewModel : ViewModel() {
+@HiltViewModel
+class UserViewModel @Inject constructor(
+    private val getUserUseCase: GetUserUseCase
+) : ViewModel() {
 
     private val _isNameValid = MutableLiveData<Boolean>()
     val isNameValid: LiveData<Boolean> = _isNameValid
@@ -17,8 +22,6 @@ class UserViewModel : ViewModel() {
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> = _user
 
-    var getUserUseCase = GetUserUseCase()
-
     fun validateFields(username: String, password: String) {
         if (username.isEmpty()) {
             _isNameValid.postValue(false)
@@ -27,7 +30,7 @@ class UserViewModel : ViewModel() {
             _isPasswordValid.postValue(false)
         }
 
-        if (username.isNotEmpty() && password.isNotEmpty()){
+        if (username.isNotEmpty() && password.isNotEmpty()) {
             val userResult = getUser(username, password)
             _user.postValue(userResult)
         }

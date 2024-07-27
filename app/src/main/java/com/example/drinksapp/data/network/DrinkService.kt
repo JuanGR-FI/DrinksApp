@@ -10,38 +10,23 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.create
+import javax.inject.Inject
 
-class DrinkService {
-    private val retrofit = RetrofitHelper.getRetrofit()
+class DrinkService @Inject constructor(
+    private val api: DrinkApiClient
+) {
 
     suspend fun getDrinks(letter: Char): List<Drink> {
 
         return withContext(Dispatchers.IO) {
-            /*val call: Call<DrinkModel> = retrofit.create(DrinkApiClient::class.java).getDrinks('a')
-            var drinkResponse = emptyList<Drink>()
-
-            call.enqueue(object : Callback<DrinkModel> {
-                override fun onResponse(call: Call<DrinkModel>, response: Response<DrinkModel>) {
-                    if (response.body() != null) {
-                        drinkResponse = response.body()!!.drinks
-                    }
-
-                }
-
-                override fun onFailure(call: Call<DrinkModel>, t: Throwable) {
-                    drinkResponse = emptyList()
-                }
-
-            })
-            drinkResponse*/
-            val response = retrofit.create(DrinkApiClient::class.java).getDrinks(letter)
+            val response = api.getDrinks(letter)
             response.body()?.drinks ?: emptyList()
         }
     }
 
     suspend fun getDrinkDetail(id: Int): List<Drink> {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(DrinkApiClient::class.java).getDrinkDetail(id)
+            val response = api.getDrinkDetail(id)
             response.body()?.drinks ?: emptyList()
         }
     }

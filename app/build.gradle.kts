@@ -1,10 +1,13 @@
+import com.android.build.gradle.internal.utils.isKspPluginApplied
 import org.jetbrains.kotlin.load.java.javaToKotlinNameMap
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("androidx.navigation.safeargs.kotlin")
-    kotlin("kapt")
+    //kotlin("kapt")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -62,7 +65,7 @@ dependencies {
 
     //Room
     implementation(libs.androidx.room.ktx)
-    kapt (libs.androidx.room.compiler)
+    ksp (libs.androidx.room.compiler)
 
     //Navigation Component
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -70,6 +73,10 @@ dependencies {
 
     //Picasso
     implementation(libs.picasso)
+
+    //Dagger Hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+    ksp ("com.google.dagger:hilt-android-compiler:2.48")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

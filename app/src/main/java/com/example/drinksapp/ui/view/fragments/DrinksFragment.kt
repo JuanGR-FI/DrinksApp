@@ -18,7 +18,9 @@ import com.example.drinksapp.data.model.Drink
 import com.example.drinksapp.databinding.FragmentDrinksBinding
 import com.example.drinksapp.ui.adapters.DrinksAdapter
 import com.example.drinksapp.ui.viewmodel.DrinkViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DrinksFragment : Fragment() {
     private var _binding: FragmentDrinksBinding? = null
     private val binding get() = _binding!!

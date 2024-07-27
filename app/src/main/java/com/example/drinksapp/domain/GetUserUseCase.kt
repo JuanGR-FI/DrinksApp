@@ -3,8 +3,9 @@ package com.example.drinksapp.domain
 import android.util.Base64
 import com.example.drinksapp.data.model.User
 import com.example.drinksapp.data.model.UserProvider
+import javax.inject.Inject
 
-class GetUserUseCase() {
+class GetUserUseCase @Inject constructor() {
 
     fun validateUser(username: String, password: String): User? {
         var currentUser: User? = null

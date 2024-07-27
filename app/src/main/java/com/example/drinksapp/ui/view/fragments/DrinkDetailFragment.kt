@@ -16,7 +16,9 @@ import com.example.drinksapp.data.model.Drink
 import com.example.drinksapp.databinding.FragmentDrinkDetailBinding
 import com.example.drinksapp.ui.viewmodel.DrinkViewModel
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DrinkDetailFragment : Fragment() {
     private var _binding: FragmentDrinkDetailBinding? = null
     private val binding get() = _binding!!
@@ -70,7 +72,6 @@ class DrinkDetailFragment : Fragment() {
                 .placeholder(R.drawable.img_drinks_placeholder)
                 .error(R.drawable.img_image_not_found)
                 .into(ivDrinkDetailThumbnail)
-
 
 
         }

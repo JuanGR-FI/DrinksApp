@@ -7,9 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.drinksapp.data.model.Drink
 import com.example.drinksapp.domain.GetDrinkDetailUseCase
 import com.example.drinksapp.domain.GetDrinksByLetterUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DrinkViewModel : ViewModel() {
+@HiltViewModel
+class DrinkViewModel @Inject constructor(
+    private val getDrinksByLetterUseCase: GetDrinksByLetterUseCase,
+    private val getDrinkDetailUseCase: GetDrinkDetailUseCase
+) : ViewModel() {
+
     private val _drinkList = MutableLiveData<List<Drink>>()
     val drinkList: LiveData<List<Drink>> = _drinkList
 
@@ -18,9 +25,6 @@ class DrinkViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
-
-    var getDrinksByLetterUseCase = GetDrinksByLetterUseCase()
-    var getDrinkDetailUseCase = GetDrinkDetailUseCase()
 
     fun getDrinks(index: Int) {
         viewModelScope.launch {

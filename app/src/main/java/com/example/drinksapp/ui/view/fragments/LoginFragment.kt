@@ -18,7 +18,9 @@ import com.example.drinksapp.data.model.UserProvider
 import com.example.drinksapp.databinding.FragmentLoginBinding
 import com.example.drinksapp.ui.viewmodel.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
