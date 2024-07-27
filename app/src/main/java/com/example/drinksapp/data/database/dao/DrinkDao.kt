@@ -9,7 +9,7 @@ import com.example.drinksapp.util.Constants
 @Dao
 interface DrinkDao {
 
-    @Query("SELECT * FROM ${Constants.DATABASE_FAVORITE_TABLE} WHERE id=:userid")
+    @Query("SELECT * FROM ${Constants.DATABASE_FAVORITE_TABLE} WHERE userId=:userid")
     suspend fun getAllFavorites(userid: Int): List<DrinkEntity>
 
     @Insert

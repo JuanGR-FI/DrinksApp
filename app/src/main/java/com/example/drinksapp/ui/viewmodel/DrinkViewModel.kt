@@ -64,14 +64,15 @@ class DrinkViewModel @Inject constructor(
     fun insertFavorite(drink: DrinkModel, userId: Int) {
         viewModelScope.launch {
             insertDrinkToDbUseCase.insertFavorite(drink, userId)
-            Log.i("FAV", "Intentando almacenar en DB")
         }
     }
 
     fun getFavorites(userId: Int) {
         viewModelScope.launch {
+            _isLoading.postValue(true)
             val result = getFavoritesUseCase.getFavorites(userId)
             _favDrinkList.postValue(result)
+            _isLoading.postValue(false)
         }
 
     }

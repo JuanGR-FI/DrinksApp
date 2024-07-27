@@ -1,10 +1,12 @@
 package com.example.drinksapp.ui.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,6 +19,7 @@ import com.example.drinksapp.databinding.FragmentDrinksBinding
 import com.example.drinksapp.domain.model.Drink
 import com.example.drinksapp.ui.adapters.DrinksAdapter
 import com.example.drinksapp.ui.viewmodel.DrinkViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +28,9 @@ class DrinksFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: DrinksFragmentArgs by navArgs()
+
+    private var isFirstLoad: Boolean = false
+    private var mRootView: ViewGroup? = null
 
     private var currentPage = 0
     private var isLoading = false
@@ -38,7 +44,15 @@ class DrinksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDrinksBinding.inflate(inflater, container, false)
-        return binding.root
+
+        if (mRootView == null) {
+            mRootView = _binding?.root
+            isFirstLoad = true
+        } else {
+            isFirstLoad = false
+        }
+
+        return mRootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +60,13 @@ class DrinksFragment : Fragment() {
 
         val userId = args.userId
 
-        val myAdapter = DrinksAdapter(drinks, { id ->
+        if (isFirstLoad) {
+            if (drinks.isEmpty()) {
+                drinkViewModel.getFavorites(userId)
+            }
+        }
+
+        val myAdapter = DrinksAdapter(false, drinks, mutableListOf(), { id ->
             findNavController()
                 .navigate(
                     DrinksFragmentDirections
@@ -55,7 +75,11 @@ class DrinksFragment : Fragment() {
 
         }, { drink ->
             drinkViewModel.insertFavorite(drink, userId)
+            Toast.makeText(requireContext(), "Cóctel agregado a favoritos", Toast.LENGTH_SHORT)
+                .show()
         })
+
+
 
         binding.rvDrinks.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -85,12 +109,14 @@ class DrinksFragment : Fragment() {
             )
         }
 
-        if (savedInstanceState == null) {
-            if (drinks.isEmpty()) {
-                drinkViewModel.getDrinks(currentPage)
-            }
-
+        binding.btnExit.setOnClickListener {
+            showExitDialog()
         }
+
+        drinkViewModel.favDrinkList.observe(viewLifecycleOwner, Observer { favsList ->
+            myAdapter.favsList = favsList.toMutableList()
+            drinkViewModel.getDrinks(currentPage)
+        })
 
         drinkViewModel.isLoading.observe(viewLifecycleOwner, Observer {
             binding.progressBarDrinks.isVisible = it
@@ -107,6 +133,20 @@ class DrinksFragment : Fragment() {
             currentPage++
         })
 
+    }
+
+    private fun showExitDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Aviso!")
+            .setMessage("¿Deseas salir de la aplicación?")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+                activity?.finish()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onDestroy() {

@@ -1,5 +1,6 @@
 package com.example.drinksapp.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,9 @@ import com.example.drinksapp.domain.model.Drink
 import com.squareup.picasso.Picasso
 
 class DrinksAdapter(
+    private val isFavList: Boolean,
     var drinks: MutableList<DrinkModel>,
+    var favsList: MutableList<DrinkModel>,
     private val onDrinkClicked: (Int) -> Unit,
     private val onFavClicked: (DrinkModel) -> Unit
 ) :
@@ -42,11 +45,26 @@ class DrinksAdapter(
         holder.bind(drink)
 
         holder.itemView.setOnClickListener {
-            onDrinkClicked(drink.idDrink.toInt())
+            onDrinkClicked(drink.idDrink!!.toInt())
         }
 
-        holder.btnFav.setOnClickListener {
-            onFavClicked(drink)
+        if (isFavList) {
+            holder.btnFav.setIconTintResource(R.color.red_icon_color)
+        } else {
+            if (isAddedToFavList(drink)) {
+                holder.btnFav.setIconTintResource(R.color.red_icon_color)
+            } else {
+                holder.btnFav.setIconTintResource(R.color.gray_icon_color)
+
+                holder.btnFav.setOnClickListener {
+                    if(!drink.isFavSaved){
+                        holder.btnFav.setIconTintResource(R.color.red_icon_color)
+                        drink.isFavSaved = true
+                        onFavClicked(drink)
+                    }
+
+                }
+            }
         }
 
         Picasso.get()
@@ -55,7 +73,17 @@ class DrinksAdapter(
             .error(R.drawable.img_image_not_found)
             .into(holder.ivThumbnail)
 
+    }
 
+    private fun isAddedToFavList(drink: DrinkModel): Boolean {
+        for (fav in favsList) {
+            if (drink.idDrink == fav.idDrink){
+                Log.i("FAVS", "DrinkId = ${drink.idDrink} FavDrinkId = ${fav.idDrink}")
+                return true
+            }
+
+        }
+        return false
     }
 
 }

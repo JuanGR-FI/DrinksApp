@@ -73,7 +73,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bar_drinks_fragment" />
+        app:layout_constraintTop_toBottomOf="@id/app_bar_drinks_fragment"
+        tools:listitem="@layout/drink_element" />
 
     <ProgressBar
         android:id="@+id/progressBarDrinks"

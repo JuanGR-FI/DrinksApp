@@ -50,5 +50,9 @@
             android:name="userId"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_favoriteDrinksFragment_to_drinkDetailFragment"
+            app:destination="@id/drinkDetailFragment"
+            app:popUpTo="@id/favoriteDrinksFragment" />
     </fragment>
 </navigation>
