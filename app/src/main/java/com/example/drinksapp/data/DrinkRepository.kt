@@ -5,6 +5,7 @@ import com.example.drinksapp.data.database.dao.UserDao
 import com.example.drinksapp.data.database.entities.DrinkEntity
 import com.example.drinksapp.data.database.entities.UserEntity
 import com.example.drinksapp.data.model.DrinkModel
+import com.example.drinksapp.data.model.toDomain
 import com.example.drinksapp.data.network.DrinkService
 import com.example.drinksapp.domain.model.Drink
 import com.example.drinksapp.domain.model.toDomain
@@ -46,6 +47,12 @@ class DrinkRepository @Inject constructor(
 
     suspend fun insertFavorite(drink: DrinkEntity){
         drinkDao.insertFavorite(drink)
+    }
+
+    suspend fun getAllFavorites(userId: Int): List<DrinkModel>{
+        val response = drinkDao.getAllFavorites(userId)
+
+        return response.map { it.toDomain() }
     }
 
 }

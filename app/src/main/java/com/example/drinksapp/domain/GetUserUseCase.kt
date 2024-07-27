@@ -27,29 +27,6 @@ class GetUserUseCase @Inject constructor(private val repository: DrinkRepository
     private fun validateUser(user: User, passwd: String): Boolean =
         (decodePassword(user.password) == passwd)
 
-
-    fun validateUser(username: String, password: String): User? {
-        var currentUser: User? = null
-
-        val listFilter = UserProvider.users.filter { it.name == username }
-
-        currentUser = if (listFilter.isEmpty()) {
-            null
-        } else {
-            listFilter[0]
-        }
-
-        if (currentUser != null) {
-            return if (password == decodePassword(currentUser.password)) {
-                currentUser
-            } else {
-                null
-            }
-
-        }
-        return null
-    }
-
     private fun decodePassword(passwd: String) =
         Base64.decode(passwd, Base64.DEFAULT).toString(Charsets.UTF_8)
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.drinksapp.data.model.DrinkModel
 import com.example.drinksapp.domain.GetDrinkDetailUseCase
 import com.example.drinksapp.domain.GetDrinksByLetterUseCase
+import com.example.drinksapp.domain.GetFavoritesUseCase
 import com.example.drinksapp.domain.InsertDrinkToDbUseCase
 import com.example.drinksapp.domain.model.Drink
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class DrinkViewModel @Inject constructor(
     private val getDrinksByLetterUseCase: GetDrinksByLetterUseCase,
     private val getDrinkDetailUseCase: GetDrinkDetailUseCase,
-    private val insertDrinkToDbUseCase: InsertDrinkToDbUseCase
+    private val insertDrinkToDbUseCase: InsertDrinkToDbUseCase,
+    private val getFavoritesUseCase: GetFavoritesUseCase
 ) : ViewModel() {
 
     private val _drinkList = MutableLiveData<List<DrinkModel>>()
@@ -26,6 +28,9 @@ class DrinkViewModel @Inject constructor(
 
     private val _drink = MutableLiveData<DrinkModel>()
     val drink: LiveData<DrinkModel> = _drink
+
+    private val _favDrinkList = MutableLiveData<List<DrinkModel>>()
+    val favDrinkList: LiveData<List<DrinkModel>> = _favDrinkList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -62,6 +67,15 @@ class DrinkViewModel @Inject constructor(
             Log.i("FAV", "Intentando almacenar en DB")
         }
     }
+
+    fun getFavorites(userId: Int) {
+        viewModelScope.launch {
+            val result = getFavoritesUseCase.getFavorites(userId)
+            _favDrinkList.postValue(result)
+        }
+
+    }
+
 
     private fun getNewLetter(index: Int): Char {
         return when (index) {
