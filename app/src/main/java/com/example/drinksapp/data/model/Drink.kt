@@ -3,7 +3,6 @@ package com.example.drinksapp.data.model
 import com.google.gson.annotations.SerializedName
 
 data class Drink(
-    var isFavorite: Boolean = false,
     val dateModified: String,
     val idDrink: String,
     val strAlcoholic: String,
