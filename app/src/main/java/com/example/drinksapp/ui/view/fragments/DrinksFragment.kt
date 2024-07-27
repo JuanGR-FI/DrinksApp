@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drinksapp.data.model.DrinkModel
@@ -23,10 +24,12 @@ class DrinksFragment : Fragment() {
     private var _binding: FragmentDrinksBinding? = null
     private val binding get() = _binding!!
 
+    private val args: DrinksFragmentArgs by navArgs()
+
     private var currentPage = 0
     private var isLoading = false
 
-    private var drinks = mutableListOf<Drink>()
+    private var drinks = mutableListOf<DrinkModel>()
 
     private val drinkViewModel: DrinkViewModel by viewModels()
 
@@ -40,6 +43,9 @@ class DrinksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val userId = args.userId
+
 
         val myAdapter = DrinksAdapter(drinks) { id ->
             findNavController()
@@ -70,8 +76,16 @@ class DrinksFragment : Fragment() {
             })
         }
 
+        binding.btnFav.setOnClickListener {
+            /*findNavController().navigate(
+                DrinksFragmentDirections.actionDrinksFragmentToFavoriteDrinksFragment(
+                    userId = userId
+                )
+            )*/
+        }
+
         if (savedInstanceState == null) {
-            if(drinks.isEmpty()){
+            if (drinks.isEmpty()) {
                 drinkViewModel.getDrinks(currentPage)
             }
 

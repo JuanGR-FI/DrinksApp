@@ -23,6 +23,13 @@
             android:id="@+id/action_drinksFragment_to_drinkDetailFragment"
             app:destination="@id/drinkDetailFragment"
             app:popUpTo="@id/drinksFragment" />
+        <argument
+            android:name="userId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_drinksFragment_to_favoriteDrinksFragment"
+            app:destination="@id/favoriteDrinksFragment" />
     </fragment>
     <fragment
         android:id="@+id/drinkDetailFragment"
@@ -31,6 +38,16 @@
         tools:layout="@layout/fragment_drink_detail" >
         <argument
             android:name="drinkId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteDrinksFragment"
+        android:name="com.example.drinksapp.ui.view.fragments.FavoriteDrinksFragment"
+        android:label="fragment_favorite_drinks"
+        tools:layout="@layout/fragment_favorite_drinks" >
+        <argument
+            android:name="userId"
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>

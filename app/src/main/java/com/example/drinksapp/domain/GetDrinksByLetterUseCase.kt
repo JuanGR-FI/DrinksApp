@@ -9,6 +9,6 @@ class GetDrinksByLetterUseCase @Inject constructor(
     private val repository: DrinkRepository
 ) {
 
-    suspend fun getDrinksByLetter(letter: Char): List<Drink> = repository.getAllDrinks(letter)
+    suspend fun getDrinksByLetter(letter: Char): List<DrinkModel> = repository.getAllDrinks(letter)
 
 }

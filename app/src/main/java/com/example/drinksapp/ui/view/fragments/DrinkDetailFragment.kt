@@ -55,7 +55,7 @@ class DrinkDetailFragment : Fragment() {
 
     }
 
-    private fun prepareUI(drink: Drink) {
+    private fun prepareUI(drink: DrinkModel) {
         binding.apply {
 
             btnExit.setOnClickListener {
@@ -77,7 +77,7 @@ class DrinkDetailFragment : Fragment() {
         }
     }
 
-    private fun prepareIngredientList(drink: Drink): String {
+    private fun prepareIngredientList(drink: DrinkModel): String {
         var ingredientListStr = ""
 
         if (drink.strIngredient1 != null) {

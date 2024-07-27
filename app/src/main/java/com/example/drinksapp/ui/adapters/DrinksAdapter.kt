@@ -10,7 +10,7 @@ import com.example.drinksapp.domain.model.Drink
 import com.squareup.picasso.Picasso
 
 class DrinksAdapter(
-    var drinks: MutableList<Drink>,
+    var drinks: MutableList<DrinkModel>,
     private val onDrinkClicked: (Int) -> Unit
 ) :
     RecyclerView.Adapter<DrinksAdapter.ViewHolder>() {
@@ -20,7 +20,7 @@ class DrinksAdapter(
 
         val ivThumbnail = binding.ivDrinkThumbnail
 
-        fun bind(drink: Drink) {
+        fun bind(drink: DrinkModel) {
             binding.tvDrinkName.text = drink.strDrink
             binding.tvDrinkCategory.text = drink.strCategory
         }

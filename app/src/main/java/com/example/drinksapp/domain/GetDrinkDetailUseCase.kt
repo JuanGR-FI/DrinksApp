@@ -9,5 +9,5 @@ class GetDrinkDetailUseCase @Inject constructor(
     private val repository: DrinkRepository
 ) {
 
-    suspend fun getDrinkDetail(id: Int): List<Drink> = repository.getDrinkDetail(id)
+    suspend fun getDrinkDetail(id: Int): List<DrinkModel> = repository.getDrinkDetail(id)
 }

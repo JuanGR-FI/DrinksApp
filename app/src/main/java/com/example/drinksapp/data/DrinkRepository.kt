@@ -25,16 +25,18 @@ class DrinkRepository @Inject constructor(
         return response
     }
 
-    suspend fun getAllDrinks(letter: Char): List<Drink> {
+    suspend fun getAllDrinks(letter: Char): List<DrinkModel> {
         val response = api.getDrinks(letter)
         //QuoteProvider.quotes = response
-        return response.map { it.toDomain() }
+        return response
+        //return response.map { it.toDomain() }
     }
 
-    suspend fun getDrinkDetail(id: Int): List<Drink> {
+    suspend fun getDrinkDetail(id: Int): List<DrinkModel> {
         val response = api.getDrinkDetail(id)
         //QuoteProvider.quotes = response
-        return response.map { it.toDomain() }
+        return response
+        //return response.map { it.toDomain() }
     }
 
     suspend fun insertUser(user: UserEntity) {

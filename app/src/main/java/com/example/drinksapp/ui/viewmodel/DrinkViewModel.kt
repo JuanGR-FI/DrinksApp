@@ -18,11 +18,11 @@ class DrinkViewModel @Inject constructor(
     private val getDrinkDetailUseCase: GetDrinkDetailUseCase
 ) : ViewModel() {
 
-    private val _drinkList = MutableLiveData<List<Drink>>()
-    val drinkList: LiveData<List<Drink>> = _drinkList
+    private val _drinkList = MutableLiveData<List<DrinkModel>>()
+    val drinkList: LiveData<List<DrinkModel>> = _drinkList
 
-    private val _drink = MutableLiveData<Drink>()
-    val drink: LiveData<Drink> = _drink
+    private val _drink = MutableLiveData<DrinkModel>()
+    val drink: LiveData<DrinkModel> = _drink
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading

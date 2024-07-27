@@ -68,7 +68,11 @@ class LoginFragment : Fragment() {
         userViewModel.user.observe(viewLifecycleOwner, Observer { currentUser ->
             if (currentUser != null) {
                 //findNavController().navigate(R.id.action_loginFragment_to_drinksFragment)
-                Toast.makeText(requireContext(), "Usuario valido", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(
+                    LoginFragmentDirections.actionLoginFragmentToDrinksFragment(
+                        userId = currentUser.id
+                    )
+                )
             } else {
                 showUserNotRegisteredDialog()
             }
