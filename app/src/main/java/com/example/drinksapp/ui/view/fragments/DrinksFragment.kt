@@ -1,21 +1,19 @@
 package com.example.drinksapp.ui.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.drinksapp.R
-import com.example.drinksapp.data.model.Drink
+import com.example.drinksapp.data.model.DrinkModel
 import com.example.drinksapp.databinding.FragmentDrinksBinding
+import com.example.drinksapp.domain.model.Drink
 import com.example.drinksapp.ui.adapters.DrinksAdapter
 import com.example.drinksapp.ui.viewmodel.DrinkViewModel
 import dagger.hilt.android.AndroidEntryPoint

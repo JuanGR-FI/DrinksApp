@@ -1,7 +1,6 @@
 package com.example.drinksapp.data.network
 
-import com.example.drinksapp.data.model.DrinkModel
-import retrofit2.Call
+import com.example.drinksapp.data.model.DrinkModelResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,11 +10,11 @@ interface DrinkApiClient {
     @GET("search.php")
     suspend fun getDrinks(
         @Query("f") letter: Char
-    ): Response<DrinkModel>
+    ): Response<DrinkModelResponse>
 
     @GET("lookup.php")
     suspend fun getDrinkDetail(
         @Query("i") id: Int
-    ): Response<DrinkModel>
+    ): Response<DrinkModelResponse>
 
 }

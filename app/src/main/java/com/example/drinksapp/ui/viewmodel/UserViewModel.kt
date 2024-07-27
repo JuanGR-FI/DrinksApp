@@ -3,7 +3,7 @@ package com.example.drinksapp.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.drinksapp.data.model.User
+import com.example.drinksapp.domain.model.User
 import com.example.drinksapp.domain.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

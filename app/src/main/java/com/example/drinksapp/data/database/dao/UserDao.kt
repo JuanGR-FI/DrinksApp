@@ -13,6 +13,9 @@ interface UserDao {
     suspend fun insertUser(user: UserEntity)
 
     @Query("SELECT * FROM ${Constants.DATABASE_USER_TABLE} WHERE id=:userId")
-    suspend fun getUser(userId: String): UserEntity
+    suspend fun getUserById(userId: Int): UserEntity
+
+    @Query("SELECT * FROM ${Constants.DATABASE_USER_TABLE} WHERE name=:username")
+    suspend fun getUserByName(username: String): UserEntity
 
 }

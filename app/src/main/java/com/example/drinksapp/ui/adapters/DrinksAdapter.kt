@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drinksapp.R
-import com.example.drinksapp.data.model.Drink
+import com.example.drinksapp.data.model.DrinkModel
 import com.example.drinksapp.databinding.DrinkElementBinding
+import com.example.drinksapp.domain.model.Drink
 import com.squareup.picasso.Picasso
 
 class DrinksAdapter(
