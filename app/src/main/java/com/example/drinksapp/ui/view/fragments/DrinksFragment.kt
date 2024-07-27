@@ -133,10 +133,12 @@ class DrinksFragment : Fragment() {
             //Log.i("DRINKS", drinkList.toString())
             //Log.i("DRINKS", "TAM: ${drinkList.size}")
             //myAdapter.drinks = drinkList.toMutableList()
-            myAdapter.drinks.addAll(drinkList)
-            myAdapter.notifyDataSetChanged()
+            if(!isInOtherFragment){
+                myAdapter.drinks.addAll(drinkList)
+                myAdapter.notifyDataSetChanged()
+                currentPage++
+            }
 
-            currentPage++
         })
 
     }
